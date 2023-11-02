@@ -1,0 +1,34 @@
+.opcion{
+    float: inline-end;
+    width:100%;
+    height:50px;
+}
+
+.container{
+    width: 90%;
+    height: 90%;
+    position: absolute;
+    background-color: lightblue;
+    
+}
+
+.cuadro-texto{
+    float: left;
+    width:400px;
+    height:300px;
+    text-align: left;
+    padding:  0.4em;
+    padding-bottom:190px;
+    }
+
+.opciones{
+    float:left;
+    width:200px;
+    height:100%;
+    border: 2px solid black;
+}
+
+html{
+    width: 100%;
+    height:100%;
+}

@@ -1,0 +1,58 @@
+.color-marron {
+  color: chocolate;
+}
+
+.dia {
+  box-sizing: border-box;
+  float: left;
+  height: 25%;
+  text-align: center;
+  border: 1px solid black;
+  margin: -1px 0 0 -1px; /*Que no haya bordes en los divs*/
+  width: 14.27%;
+}
+
+.centrar-todo {
+  display: block;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  width: 91%;
+  height: 200px;
+  margin: auto;
+}
+
+.centrar-texto {
+  text-align: center;
+}
+
+.cabecera {
+  display: block;
+  font-size: 6rem;
+  width: 100%;
+  text-align: center;
+  margin: auto;
+  clear: both;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  display: block;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  display: inline-block;
+  box-sizing: inherit;
+}
+
+.container {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
