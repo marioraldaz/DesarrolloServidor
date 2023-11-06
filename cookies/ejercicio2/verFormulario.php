@@ -8,19 +8,19 @@
 </head>
 <body>
     <?php
-    echo " <div class='container' style=background-color:$_COOKIE[color] color:$_COOKIE[fontColor]> <form method='POST' action=''>";
-    switch($_COOKIE['idioma']){
-        case 'español':
-            echo 'Usuario: <input type="text" name="usuario"/>';
-            echo 'Contraseña: <input type="password" name="contraseña"/>';
-            break;
-        case 'ingles':
-            echo 'User: <input type="text" name="usuario"/>';
-            echo 'Password: <input type="password" name="contraseña"/>';
-            break;
-    }
-    echo "</form>";
- 
+    include "./idiomas.php";
+    $idioma=$listaIdiomas[$_COOKIE['idioma']]; //Si hubiese hecho varios array como $español=>[] usaría $$_COOKIE
+        echo <<<FORM
+        <div class='container' style=background-color:$_COOKIE[colorFondo] color:$_COOKIE[fontColor]>
+            <form method='POST' action=''>
+                $idioma[0] <input type='text' name="idioma"/>
+                $idioma[1] <input type="color" name="colorFuente"/>
+                $idioma[2] <input type="color" name="colorFondo"/>
+                <input type='submit' value="$idioma[3]" />
+            </form>
+        </div>
+    FORM;
+    
 ?>
 </body>
 </html>

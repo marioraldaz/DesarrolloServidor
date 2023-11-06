@@ -7,8 +7,10 @@
 </head>
 <body>
     <?php
-        include "./idiomas.php";
-
+        $jsonURL= "./idiomas.json";
+        $JSON = file_get_contents($jsonURL);
+        $listaIdiomas = json_decode($JSON,true); //TRUE FOR ASSOCIATIVE
+     
         function crearSelect(){
             global $listaIdiomas;
             $listaIdiomas = array_keys($listaIdiomas);

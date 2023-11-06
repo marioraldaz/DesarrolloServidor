@@ -1,0 +1,38 @@
+{
+        
+    "español" : {
+        "idioma":"Idioma",
+        "colorFuente":"Color de la fuente",
+        "colorFondo":"Color de fondo",
+        "Enviar":"Enviar"
+    },
+
+    "ingles":{
+        "idioma":"Lenguage",
+        "colorFuente":"Color de la fuente",
+        "colorFondo":"Background Color",
+        "Enviar":"Send"
+    },
+
+    "portugues":{
+        "idioma":"linguagem",
+        "colorFuente":"Cor da fonte",
+        "colorFondo":"Cor de fundo",
+        "Enviar":"Mandar"
+    },
+    
+    "frances":{
+        "idioma":"Langage",
+        "colorFuente":"Couleur de la police",
+        "colorFondo":"Couleur de l'arrière plan",
+        "Enviar":"ulala"
+    },
+    
+    "italiano":{
+        "idioma":"Lingua",
+        "colorFuente":"Colore del carattere",
+        "colorFondo":"Colore di sfondo",
+        "Enviar":"Riggatoni"
+    }
+}
+  
