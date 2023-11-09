@@ -8,9 +8,10 @@
 </head>
 <body>
     <?php
+    
         $jsonURL= "./idiomas.json";
         $JSON = file_get_contents($jsonURL);
-        $listaIdiomas = json_decode($JSON,true); //TRUE FOR ASSO
+        $listaIdiomas = json_decode($JSON,true); //VER COMO FUNCIONA EL PATH DE LAS COOKIES
         $idioma=$listaIdiomas[$_COOKIE['idioma']];
         echo <<<FORM
         <div class='container' style=background-color:$_COOKIE[colorFondo] color:$_COOKIE[fontColor]>
@@ -21,8 +22,8 @@
                 <input type='submit' value="$idioma[Enviar]" />
             </form>
         </div>
-    FORM;
+        FORM;
     
-?>
+    ?>
 </body>
 </html>
