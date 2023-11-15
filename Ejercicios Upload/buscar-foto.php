@@ -12,7 +12,7 @@
       if(isset($_POST['enviar2'])){
         $archivos=scandir('./archivos');
         for($i=2;$i<count($archivos);$i++){
-            list($nombre, $extension) = explode('_', $archivos[$i]);
+            list($nombre, $extension) = explode('_', $archivos[$i]); //Ver bien list
             if($nombre=$_POST['nombre2']){
                 $src='./archivos/'.$nombre."_".$extension;
             }
