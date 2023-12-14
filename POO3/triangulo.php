@@ -15,11 +15,12 @@
         public function getAltura(){
             return $this->altura;
         }
-        public function __construct($longitudLado){
+        public function __construct($color,$longitudLado){
             $this->longitudLado=$longitudLado;
             $this->perimetro=$longitudLado*3;
             $this->altura=$longitudLado*sqrt(3)/2;
             $this->area=($longitudLado*$this->altura)/2;
+            parent::__construct($color,$longitudLado);
         }
 
         public function __toString(){
