@@ -1,0 +1,61 @@
+
+.container{
+    background-color: red;
+    width: 90%;
+    height: 90%;
+    margin-left: 5%;
+}
+
+html,body{
+    width:100%;
+    height: 100%;
+}
+
+*{
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+.noUsada{
+    background-color: blue;
+}
+
+.usada{
+    background-color: rgb(100, 53, 53);
+}
+
+.usada,.noUsada{
+    float:left;
+    font-size: 30px;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+}
+
+.letras{
+    width:100%;
+    height:200px;
+}
+
+.palabra{
+    margin-bottom:200px;
+    margin-top:50px;
+    height: 150px;
+    width: 50%;
+    margin-left:25%;
+    background-color: green;
+}
+
+.huecoConLetra,.hueco{
+    width: 60px;
+    height: 60px;
+    font-size: 30px;
+    border-bottom: 2px solid black;
+    margin-left:14px;
+    margin-top:20px;
+}
+
+.enviar{
+    width: 100px;
+    height:50px;
+}
