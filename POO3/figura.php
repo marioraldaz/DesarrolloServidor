@@ -2,17 +2,19 @@
 
     abstract class Figura{
         private $color;
-        private $alto;
-        private $ancho;
+        private $tamaño;
 
-        public function __construct($color,$alto, $ancho){
+        public function __construct($color,$tamaño){
             $this->color = $color;
-            $this->alto=$alto;
-            $this->ancho=$ancho;
+            $this->tamaño = $tamaño;
         }
 
         public function __toString(){
-            return ".$this->color.''.$this->alto ";
+            return 'Color: '.$this->color.'Tamaño (px): '.$this->tamaño;
+        }
+
+        public function getColor(){
+            return $this->color;
         }
     }
 
