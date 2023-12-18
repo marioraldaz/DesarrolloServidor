@@ -1,0 +1,17 @@
+{
+    "name": "user/user",
+    "description": "project",
+    "type": "project",
+    "license": "GPL",
+    "autoload": {
+        "psr-4": {
+            "Desarrollo\\Proyectos\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "marioo"
+        }
+    ],
+    "require": {}
+}

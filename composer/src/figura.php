@@ -1,5 +1,6 @@
 <?php
-
+    namespace Desarrollo\Proyectos;
+    
     abstract class Figura{
         private $color;
         private $tamaño;
@@ -15,7 +16,6 @@
 
         public function getColor(){
             return $this->color;
-        }
     }
-
+}
 ?>
