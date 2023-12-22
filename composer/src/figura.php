@@ -16,6 +16,6 @@
 
         public function getColor(){
             return $this->color;
-    }
+        }
 }
 ?>
