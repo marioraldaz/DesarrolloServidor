@@ -7,14 +7,19 @@
 </head>
 <body>
     <?php
-        include "./dbconnection.php";
+        include "./db_connect.php";
 
-        $conexion = connect("book");
+        $conexion = connect("books");
 
-        $prueba = $conexion->query("SELECT * from cliente"); // Nos devuelve un objeto query
-        foreach ($prueba as $fila){
-            echo $fila['nombre'];
+        $books = $conexion->query("SELECT * from book"); // Nos devuelve un objeto query
+
+        var_dump($books);
+
+        foreach ($books as $fila){
+            echo $fila;
         }
+
+
     ?>
 </body>
 </html>
