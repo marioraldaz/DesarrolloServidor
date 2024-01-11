@@ -1,8 +1,7 @@
 {
-    "database": {
-      "host": "localhost",
-      "username": "root",
-      "password": "",
-      "dbname": ""
-    }
-  }
+  "DBType": "mysql",
+  "DBName": "books",
+  "Host": "127.0.0.1",
+  "User": "root",
+  "Password": ""
+}
