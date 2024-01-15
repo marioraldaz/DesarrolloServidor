@@ -10,7 +10,7 @@
         <!-- Buttons to perform actions -->
         <button type="submit" name="crearDatabase">Crear Base de Datos</button>
         <button type="submit" name="insertarCustomer">Insertar Customer</button>
-        <button type="submit" name="insertarBook">Insertar Book</button>
+        <a href="./gestionarBooks.php" >Gestionar libros</button>
         <button type="submit" name="verDatos">Ver Datos</button>
         <button type="submit" name="eliminarDatos">Eliminar Datos</button>
         <button type="submit" name="desconectar">Desconectar</button>
@@ -19,6 +19,7 @@
     require 'vendor/autoload.php';
     use Segunda\books\DBConnection;
     use Segunda\books\Customer;
+
     $dbConnection = new DBConnection("./config.json");
     $dbConnection->dbConnect();
     
@@ -30,9 +31,6 @@
         } elseif (isset($_POST['insertarCustomer'])) {
             echo <<<FORM
             <form method="post" action="">
-                <label for="id">ID:</label>
-                <input type="text" name="id" required>
-                <br>
             
                 <label for="firstName">First Name:</label>
                 <input type="text" name="firstName" required>
@@ -65,42 +63,7 @@
         } elseif (isset($_POST['desconectar'])) {
             $dbConnection->dbClose();
             echo "Desconectado de la base de datos.";
-        } else if (isset($_POST['insertarBook'])) {
-            echo <<<FORM
-           
-            <form method="post" action="process_form.php"> <!-- Replace "process_form.php" with the actual name of your PHP processing script -->
-            <label for="id">ID:</label>
-            <input type="text" name="id" required>
-            <br>
-            
-            <label for="isbn">ISBN:</label>
-            <input type="text" name="isbn" required>
-            <br>
-            
-            <label for="title">Title:</label>
-            <input type="text" name="title" required>
-            <br>
-            
-            <label for="author">Author:</label>
-            <input type="text" name="author" required>
-            <br>
-            
-            <label for="stock">Stock:</label>
-            <input type="number" name="stock" required>
-            <br>
-            
-            <label for="price">Price:</label>
-            <input type="number" step="0.01" name="price" required>
-            <br>
-
-            <button type="submit" name="submit">Add Book</button>
-        </form>
-        FORM;
-        if(isset($_POST['insertar'])){
-            $nuevo = new Customer($_POST['id'],$_POST['firstName'],$_POST['surname'],$_POST['email'],$_POST['type']);
-            $nuevo->insert();
-        }
-    }
+        } 
 }
     ?>
     

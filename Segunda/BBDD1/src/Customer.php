@@ -2,14 +2,12 @@
     Namespace Segunda\books;
 
     Class Customer extends DBConnection{
-        public $id;
         public $firstname;
         public $surname;
         public $email;
         public $type;
 
-        public function __construct($id, $firstName, $surname, $email, $type){
-            $this->id = $id;
+        public function __construct($firstName, $surname, $email, $type){
             $this->firstname = $firstName;
             $this->surname = $surname;
             $this->email = $email;
@@ -20,11 +18,10 @@
         
         public function insert(){
             var_dump($this->connection);
-            $query = "INSERT INTO customer (id, firstname, surname, email, type) VALUES (:id, :firstname, :surname, :email, :type)";
+            $query = "INSERT INTO customer ( firstname, surname, email, type) VALUES ( :firstname, :surname, :email, :type)";
 
             $statement = $this->connection->prepare($query);
             
-            $statement->bindParam(':id', $this->id);
             $statement->bindParam(':firstname', $this->firstname);
             $statement->bindParam(':surname', $this->surname);
             $statement->bindParam(':email', $this->email);

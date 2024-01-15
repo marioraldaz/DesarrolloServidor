@@ -1,17 +1,15 @@
 <?php
     namespace Segunda\books;
-    use Segunda\books\DBConnection;
-    
+    use PDO;
     Class Book extends DBConnection{
-        private $id;
         private $isbn;
         private $title;
         private $author;
         private $stock;
         private $price;
     
-        public function __construct($id, $isbn, $title, $author, $stock, $price) {
-            $this->id = $id;
+        public function __construct($isbn, $title, $author, $stock, $price) {
+            
             $this->isbn = $isbn;
             $this->title = $title;
             $this->author = $author;
@@ -22,23 +20,46 @@
         }
 
         public function insert(){
-                $query = "INSERT INTO book (id, isbn, title, author, stock, price) 
-                          VALUES (:id, :isbn, :title, :author, :stock, :price)";
+                $query = "INSERT INTO book ( isbn, title, author, stock, price) 
+                          VALUES ( :isbn, :title, :author, :stock, :price)";
         
                 $statement = $this->connection->prepare($query);
         
-                $statement->bindParam(':id', $this->id);
                 $statement->bindParam(':isbn', $this->isbn);
                 $statement->bindParam(':title', $this->title);
                 $statement->bindParam(':author', $this->author);
                 $statement->bindParam(':stock', $this->stock);
                 $statement->bindParam(':price', $this->price);
-        
-                if ($statement->execute()) {
+                $success=$statement->execute();
+                if ($success) {
                     echo "Book inserted successfully.";
                 } else {
                     echo "Error inserting book: " . implode(" ", $statement->errorInfo());
                 }
         }
+
+        public function deleteBookById($id) {
+            $query = "DELETE FROM book WHERE id = :id";
+            $statement = $this->connection->prepare($query);
+            $statement->bindParam(':id', $id, PDO::PARAM_INT);
+    
+            if ($statement->execute()) {
+                echo "Book with ID $id deleted successfully.";
+            } else {
+                echo "Error deleting book: " . implode(" ", $statement->errorInfo());
+            }
+        }
+        public function deleteBookByTitle($title) {
+            $query = "DELETE FROM book WHERE title = :title";
+            $statement = $this->connection->prepare($query);
+            $statement->bindParam(':title', $title, PDO::PARAM_STR);
+    
+            if ($statement->execute()) {
+                echo "Book with title '$title' deleted successfully.";
+            } else {
+                echo "Error deleting book: " . implode(" ", $statement->errorInfo());
+            }
+        }
+    
 
     }
