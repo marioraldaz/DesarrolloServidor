@@ -1,11 +1,14 @@
 <?php
 
+namespace Segunda\books;
+use PDO;
+use PDOException;
 class DBConnection {
 
   public $dsn;
   public $user;
   public $password;
-  public $connection;
+  protected $connection;
   public $db;
 
   public $name;
@@ -48,6 +51,34 @@ class DBConnection {
     function dbClose() {
        $this->connection = null;
     }
+
+    function verDatos(){
+      $file = $this->connection->prepare("SELECT * FROM book");
+      $file->execute();
+      $fetched = $file->fetchAll(PDO::FETCH_ASSOC);
+
+      if (empty($fetched)) {
+          echo "No data to display.";
+          return;
+      }
+  
+      $columnas = array_keys($fetched[0]);
+      echo "<table>";
+      echo "<thead><tr>";
+      foreach($columnas as $columna){
+          echo "<th>$columna</th>";
+      }
+      echo "</tr></thead>";
+      foreach($fetched as $indice=>$valores){
+          echo "<tr>";
+          foreach($valores as $campo=>$valor){
+              echo "<td>$valor</td>";
+          }
+          echo "</tr>";
+      }
+      echo "</table>";
+
+  }
 
 }
 

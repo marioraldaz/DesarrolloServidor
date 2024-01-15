@@ -1,0 +1,17 @@
+{
+    "name": "bbdd1/marioo",
+    "type": "project",
+    "license": "GPL",
+    "autoload": {
+        "psr-4": {
+            "Segunda\\books\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "marioraldaz",
+            "email": "130656068+marioraldaz@users.noreply.github.com"
+        }
+    ],
+    "require": {}
+}
