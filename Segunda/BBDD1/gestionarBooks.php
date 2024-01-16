@@ -4,13 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="./global.css" type="text/css">
+
 </head>
 <body>
     <button type="submit" name="insertarBook">Insertar Book</button>
-    <button type="submit" name="verDatos">Ver Datos</button>
+    <a href="./">Go Back</a>
 <?php
     require 'vendor/autoload.php';
+    use Segunda\books\DBConnection;
     use Segunda\books\Book;
+
+    $dbConnection=new DBConnection('./config.json');
+    $connection=$dbConnection->connection;
+    $books=$connection->prepare("Select * from book");
+    $books->execute();
+    $books = $books->fetchAll(PDO::FETCH_ASSOC);
+    
+    echo '<form method="POST" action="<table border="1">';
+    echo '<tr>';
+    foreach ($books[0] as $key => $value) {
+        echo '<th>' . htmlspecialchars($key) . '</th>';
+    }
+    echo '<th>Actions</th>';
+    echo '</tr>';
+    
+    foreach ($books as $params) {
+        echo '<tr>';
+        foreach ($params as $key => $value) {
+            echo '<td>' . htmlspecialchars($value) . '</td>';
+        }
+        echo '<td>';
+        echo '<a href="seeSales.php?id=' . $params['id'] . '">See Sales</a>';
+        echo '<a href="seeBorrowedBooks.php?id=' . $params['id'] . '">See Borrowed Books</a>';
+        echo '<a href="modifyCustomer.php?id=' . $params['id'] . '">Modify</a>';
+        echo '<a href="deleteCustomer.php?id=' . $params['id'] . '">Delete</a>';
+        echo '</td>';
+        echo '</tr>';
+    }
+    
+    echo '</table>';
 
 if (isset($_POST['insertarBook'])) {
     echo <<<FORM

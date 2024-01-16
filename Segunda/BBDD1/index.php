@@ -4,31 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="./global.css" type="text/css">
 </head>
 <body>
+<div class="header" style="width:100%; height:30px; background-color:beige; margin-bottom:20px">
     <form method="post" action="">
         <!-- Buttons to perform actions -->
-        <button type="submit" name="crearDatabase">Crear Base de Datos</button>
-        <button type="submit" name="insertarCustomer">Insertar Customer</button>
-        <a href="./gestionarBooks.php" >Gestionar libros</button>
+        <a href="./gestionarCustomers.php" >Gestionar Clientes</a>
+        <a href="./gestionarBooks.php" >Gestionar Libros</a>
         <button type="submit" name="verDatos">Ver Datos</button>
-        <button type="submit" name="eliminarDatos">Eliminar Datos</button>
         <button type="submit" name="desconectar">Desconectar</button>
     </form>
+    </div>
+    
     <?php
     require 'vendor/autoload.php';
-    use Segunda\books\DBConnection;
     use Segunda\books\Customer;
+    use Segunda\books\DBConnection;
+    $dbConnection=new DBConnection('./config.json');
+    $connection=$dbConnection->connection;
 
-    $dbConnection = new DBConnection("./config.json");
-    $dbConnection->dbConnect();
-    
-    
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        if (isset($_POST['crearDatabase'])) {
-            $dbConnection->CrearDB("./books.sql");
-            echo "Base de datos creada.";
-        } elseif (isset($_POST['insertarCustomer'])) {
+        if (isset($_POST['insertarCustomer'])) {
             echo <<<FORM
             <form method="post" action="">
             
@@ -47,11 +44,11 @@
                 <label for="type">Type:</label>
                 <input type="text" name="type" required>
                 <br>
-                <input type="hidden" name="insertarCustomer" value="">
+                <input type="hidden" name="insertarCustomer" value=""></br>
                 <button type="submit" name="insertar">Submit</button>
             FORM;
             if(isset($_POST['insertar'])){
-                $nuevo = new Customer($_POST['id'],$_POST['firstName'],$_POST['surname'],$_POST['email'],$_POST['type']);
+                $nuevo = new Customer($_POST['firstName'],$_POST['surname'],$_POST['email'],$_POST['type'],$connection);
                 $nuevo->insert();
             }
         } elseif (isset($_POST['verDatos'])) {

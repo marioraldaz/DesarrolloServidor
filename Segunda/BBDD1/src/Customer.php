@@ -7,17 +7,16 @@
         public $email;
         public $type;
 
+
         public function __construct($firstName, $surname, $email, $type){
             $this->firstname = $firstName;
             $this->surname = $surname;
             $this->email = $email;
             $this->type = $type;
             parent::__construct('./config.json');
-            parent::dbConnect();
         }
         
         public function insert(){
-            var_dump($this->connection);
             $query = "INSERT INTO customer ( firstname, surname, email, type) VALUES ( :firstname, :surname, :email, :type)";
 
             $statement = $this->connection->prepare($query);

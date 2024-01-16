@@ -60,6 +60,5 @@
                 echo "Error deleting book: " . implode(" ", $statement->errorInfo());
             }
         }
-    
 
     }

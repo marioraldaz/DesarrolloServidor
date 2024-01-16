@@ -8,10 +8,14 @@ class DBConnection {
   public $dsn;
   public $user;
   public $password;
-  protected $connection;
+  public $connection;
   public $db;
 
   public $name;
+
+  public function getConnection(){
+    return $this->connection;
+  }
 
   public function __construct($configFile) {
     $config = json_decode(file_get_contents($configFile), TRUE);
@@ -20,14 +24,16 @@ class DBConnection {
     $this->db = "{$config['DBType']}:host={$config['Host']}";
     $this->password = "{$config['Password']}";
     $this->name = "{$config['DBName']}";
+    $this->dbConnect();
   }
 
     function dbConnect() {
       try {
-        $this->connection = new PDO($this->dsn, $this->user, $this->password, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
+        $this->connection = new PDO($this->dsn, $this->user, $this->password, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
+      ));
         return $this->connection;
       } catch (PDOException $error) {
-        echo "<h2>No existe la base de datos, creándola</h2>";
+        echo "<h2>No existe la base de datos, creándola...</h2>";
         echo $error;
         $connection = new PDO($this->db, $this->user, $this->password, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
         $query = $connection->prepare("CREATE DATABASE IF NOT EXISTS $this->name COLLATE utf8_spanish_ci");
@@ -37,7 +43,8 @@ class DBConnection {
       		$use_db = $connection->prepare("USE $this->name");
       		$use_db->execute();
         }
-       return $connection;
+        echo "<h2>Base de datos creada correctamente.</h2>";
+       $this->$connection->$connection;
       }
     }
 
