@@ -8,24 +8,23 @@
 
 </head>
 <body>
-    <button type="submit" name="insertarBook">Insertar Book</button>
-    <a href="./">Go Back</a>
-<?php
+    <?php
     require 'vendor/autoload.php';
     use Segunda\books\DBConnection;
     use Segunda\books\Book;
-
-    $dbConnection=new DBConnection('./config.json');
-    $connection=$dbConnection->connection;
-    $books=$connection->prepare("Select * from book");
-    $books->execute();
-    $books = $books->fetchAll(PDO::FETCH_ASSOC);
     
-    echo '<form method="POST" action="<table border="1">';
+    DBConnection::getConnection();
+    $books = Book::getBooks();
+    
+    echo '<form method="POST" action=""><table border="1">';
+    echo '<button type="submit" name="insertarBook">Insertar Book</button>';
+    echo '<a href="./">Go Back</a>';
     echo '<tr>';
+
     foreach ($books[0] as $key => $value) {
         echo '<th>' . htmlspecialchars($key) . '</th>';
     }
+    
     echo '<th>Actions</th>';
     echo '</tr>';
     
@@ -35,15 +34,17 @@
             echo '<td>' . htmlspecialchars($value) . '</td>';
         }
         echo '<td>';
-        echo '<a href="seeSales.php?id=' . $params['id'] . '">See Sales</a>';
-        echo '<a href="seeBorrowedBooks.php?id=' . $params['id'] . '">See Borrowed Books</a>';
-        echo '<a href="modifyCustomer.php?id=' . $params['id'] . '">Modify</a>';
-        echo '<a href="deleteCustomer.php?id=' . $params['id'] . '">Delete</a>';
+        var_dump($params);
+        echo $params['id'];
+        echo "<button type='submit' name='seeSales' value=$params[id]</button>";
+        echo '<button type="submit" name="seeBorrowedBooks" value="seeBorrowedBooks">See Borrowed Books</button>';
+        echo '<button type="submit" name="seeBorrowedBooks" value="modifyCustomer">Modify</button>';
+        echo '<button type="submit" name="seeBorrowedBooks" value="deleteCustomer">Delete</button>';
         echo '</td>';
         echo '</tr>';
     }
     
-    echo '</table>';
+    echo '</table></form>';
 
 if (isset($_POST['insertarBook'])) {
     echo <<<FORM
@@ -83,6 +84,8 @@ if(isset($_POST['insertar'])){
     );
     $nuevo->insert();
 }
+} elseif(isset($_POST['modificarBook'])){
+
 }
 
 ?>

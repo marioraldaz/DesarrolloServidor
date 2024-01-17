@@ -15,12 +15,12 @@
             $this->customer_id = $customer_id;
             $this->start = $start;
             $this->end = $end;
+            parent::getConnection();
         }
     
         public function insertBorrowedBook() {
             try {
-                $this->dbConnect();
-    
+
                 // Assuming $this->connection is the PDO connection object
                 $query = "INSERT INTO borrowed_books (book_id, customer_id, start, end) 
                           VALUES (:book_id, :customer_id, :start, :end)";

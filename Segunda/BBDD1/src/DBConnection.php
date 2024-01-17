@@ -8,84 +8,63 @@ class DBConnection {
   public $dsn;
   public $user;
   public $password;
-  public $connection;
+  protected static $connection;
   public $db;
 
-  public $name;
-
-  public function getConnection(){
-    return $this->connection;
-  }
-
-  public function __construct($configFile) {
-    $config = json_decode(file_get_contents($configFile), TRUE);
+  public $db_name;
+  private static $instance;
+    
+  public function __construct() {
+    $config = json_decode(file_get_contents('./config.json'), TRUE);  //Ahora cogerá la config de ese directorio, por lo que podemos usar esta clase en cualquier directorio y usará el fichero con ese nombre;
     $this->dsn = "{$config['DBType']}:dbname={$config['DBName']};host={$config['Host']}";;
     $this->user = "{$config['User']}";
     $this->db = "{$config['DBType']}:host={$config['Host']}";
     $this->password = "{$config['Password']}";
-    $this->name = "{$config['DBName']}";
-    $this->dbConnect();
+    $this->db_name = "{$config['DBName']}";
+    DBConnection::$connection = DBConnection::dbConnect();
   }
+  function dbClose() {
+    DBConnection::$connection = null;
+}
 
     function dbConnect() {
       try {
-        $this->connection = new PDO($this->dsn, $this->user, $this->password, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
-      ));
-        return $this->connection;
+        $connection = new PDO($this->dsn, $this->user, $this->password, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
+        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        return $connection;
       } catch (PDOException $error) {
-        echo "<h2>No existe la base de datos, creándola...</h2>";
-        echo $error;
-        $connection = new PDO($this->db, $this->user, $this->password, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
-        $query = $connection->prepare("CREATE DATABASE IF NOT EXISTS $this->name COLLATE utf8_spanish_ci");
-        $query->execute();
+        if($error->getCode() === 1049 ) { // Database no existe 
+          echo "<h2>No existe la base de datos, creándola</h2>";
+          $connection = new PDO($this->db, $this->user, $this->password, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
+          $query = $connection->prepare("CREATE DATABASE IF NOT EXISTS $this->db_name COLLATE utf8_spanish_ci");
+          $query->execute();
 
-        if($query){
-      		$use_db = $connection->prepare("USE $this->name");
-      		$use_db->execute();
-        }
-        echo "<h2>Base de datos creada correctamente.</h2>";
-       $this->$connection->$connection;
-      }
-    }
+          if($query){
+              $use_db = $connection->prepare("USE $this->db_name");
+              $use_db->execute();
+          }
 
-    function CrearDB($rutaArchivo){
-   
-      $sql = file_get_contents($rutaArchivo);
-      // Ejecutar las consultas SQL
-      $this->connection->exec($sql);
-    }
-
-    function dbClose() {
-       $this->connection = null;
-    }
-
-    function verDatos(){
-      $file = $this->connection->prepare("SELECT * FROM book");
-      $file->execute();
-      $fetched = $file->fetchAll(PDO::FETCH_ASSOC);
-
-      if (empty($fetched)) {
-          echo "No data to display.";
-          return;
+          if($use_db){
+              $DBFile = file_get_contents("./bbdd.sql"); //Ahora cogerá la base de datos de ese directorio, por lo que podemos usar esta clase en cualquier directorio y usará el fichero con ese nombre;
+              $connection->exec($DBFile);
+          }
       }
   
-      $columnas = array_keys($fetched[0]);
-      echo "<table>";
-      echo "<thead><tr>";
-      foreach($columnas as $columna){
-          echo "<th>$columna</th>";
-      }
-      echo "</tr></thead>";
-      foreach($fetched as $indice=>$valores){
-          echo "<tr>";
-          foreach($valores as $campo=>$valor){
-              echo "<td>$valor</td>";
-          }
-          echo "</tr>";
-      }
-      echo "</table>";
+      return $connection;
 
+      }
+    }
+
+
+  
+    public static function getConnection() {
+      if(!isset(self::$instance)){
+          $object = __CLASS__;
+          self::$instance = new $object;
+      }
+      return self::$instance;
   }
+
 
 }
 

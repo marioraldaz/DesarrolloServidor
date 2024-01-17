@@ -15,8 +15,7 @@
             $this->author = $author;
             $this->stock = $stock;
             $this->price = $price;
-            parent::__construct('./config.json');
-            parent::dbConnect();
+            parent::getConnection();
         }
 
         public function insert(){
@@ -38,9 +37,9 @@
                 }
         }
 
-        public function deleteBookById($id) {
+        public static function deleteBookById($id) {
             $query = "DELETE FROM book WHERE id = :id";
-            $statement = $this->connection->prepare($query);
+            $statement =DBConnection::$connection->prepare($query);
             $statement->bindParam(':id', $id, PDO::PARAM_INT);
     
             if ($statement->execute()) {
@@ -59,6 +58,38 @@
             } else {
                 echo "Error deleting book: " . implode(" ", $statement->errorInfo());
             }
+        }
+        public static function seeBooks(){
+            $file = DBConnection::$connection->prepare("SELECT * FROM book");
+            $file->execute();
+            $fetched = $file->fetchAll(PDO::FETCH_ASSOC);
+      
+            if (empty($fetched)) {
+                echo "No data to display.";
+                return;
+            }
+        
+            $columnas = array_keys($fetched[0]);
+            echo "<table>";
+            echo "<thead><tr>";
+            foreach($columnas as $columna){
+                echo "<th>$columna</th>";
+            }
+            echo "</tr></thead>";
+            foreach($fetched as $indice=>$valores){
+                echo "<tr>";
+                foreach($valores as $campo=>$valor){
+                    echo "<td>$valor</td>";
+                }
+                echo "</tr>";
+            }
+            echo "</table>";
+        }
+
+        public static function getBooks(){
+            $file = DBConnection::$connection->prepare("SELECT * FROM book");
+            $file->execute();
+            return $file->fetchAll(PDO::FETCH_ASSOC) ?? 'No book found';
         }
 
     }
