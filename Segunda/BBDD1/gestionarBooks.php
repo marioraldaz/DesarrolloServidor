@@ -12,7 +12,8 @@
     require 'vendor/autoload.php';
     use Segunda\books\DBConnection;
     use Segunda\books\Book;
-    
+    use Segunda\books\Sale;
+
     DBConnection::getConnection();
     $books = Book::getBooks();
     
@@ -34,9 +35,7 @@
             echo '<td>' . htmlspecialchars($value) . '</td>';
         }
         echo '<td>';
-        var_dump($params);
-        echo $params['id'];
-        echo "<button type='submit' name='seeSales' value=$params[id]</button>";
+        echo "<button type='submit' name='seeSales' value=$params[id]>See Sales</button>";
         echo '<button type="submit" name="seeBorrowedBooks" value="seeBorrowedBooks">See Borrowed Books</button>';
         echo '<button type="submit" name="seeBorrowedBooks" value="modifyCustomer">Modify</button>';
         echo '<button type="submit" name="seeBorrowedBooks" value="deleteCustomer">Delete</button>';
@@ -84,8 +83,9 @@ if(isset($_POST['insertar'])){
     );
     $nuevo->insert();
 }
-} elseif(isset($_POST['modificarBook'])){
-
+} elseif(isset($_POST['seeSales'])){
+    $sales=Sale::getSales($_POST['seeSales']);
+    var_dump($sales);
 }
 
 ?>
