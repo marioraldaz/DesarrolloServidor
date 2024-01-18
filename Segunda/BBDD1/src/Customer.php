@@ -1,6 +1,7 @@
 <?php
     Namespace Segunda\books;
-
+    use PDO;
+    use PDOException;
     Class Customer extends DBConnection{
         public $firstname;
         public $surname;
@@ -13,13 +14,13 @@
             $this->surname = $surname;
             $this->email = $email;
             $this->type = $type;
-            parent::__construct('./config.json');
+            parent::getConnection();
         }
         
         public function insert(){
             $query = "INSERT INTO customer ( firstname, surname, email, type) VALUES ( :firstname, :surname, :email, :type)";
 
-            $statement = $this->connection->prepare($query);
+            $statement = DBConnection::$connection->prepare($query);
             
             $statement->bindParam(':firstname', $this->firstname);
             $statement->bindParam(':surname', $this->surname);
@@ -31,6 +32,26 @@
                 echo "Customer insertado correctamente";
             } else{
                 echo "Error al insertar el libro";
+            }
+        }
+
+        public static function getCustomers(){
+            $statement = DBConnection::$connection->prepare("SELECT * FROM customer");
+        if ($statement->execute()) {
+                return $statement->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                // Handle the case where the query execution failed
+                return false;
+            }
+        }
+
+        public static function deleteCustomer($id){
+            $statement = DBConnection::$connection->prepare("DELETE FROM customer where id = $id");
+            if ($statement->execute()) {
+                return $statement->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                
+                return false;
             }
         }
 }

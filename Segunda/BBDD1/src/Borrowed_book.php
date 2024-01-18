@@ -9,8 +9,7 @@
         public $start;
         public $end;
     
-        public function __construct($configFile, $book_id, $customer_id, $start, $end = null) {
-            parent::__construct($configFile);
+        public function __construct($book_id, $customer_id, $start, $end = null) {
             $this->book_id = $book_id;
             $this->customer_id = $customer_id;
             $this->start = $start;

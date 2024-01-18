@@ -16,37 +16,9 @@
         use Segunda\books\Customer;
         use Segunda\books\DBConnection;
 
-        $dbConnection=new DBConnection('./config.json');
-        $connection=$dbConnection->connection;
-        $books=$connection->prepare("Select * from customer");
-        $books->execute();
-        $books = $books->fetchAll(PDO::FETCH_ASSOC);
+        DBConnection::getConnection();
 
-        echo '<table border="1">';
-        echo '<tr>';
-        foreach ($books[0] as $key => $value) {
-            echo '<th>' . htmlspecialchars($key) . '</th>';
-        }
-        echo '<th>Actions</th>';
-        echo '</tr>';
-        
-        foreach ($books as $params) {
-            echo '<tr>';
-            foreach ($params as $key => $value) {
-                echo '<td>' . htmlspecialchars($value) . '</td>';
-            }
-            echo '<td>';
-            echo '<a href="seeSales.php?id=' . $params['id'] . '">See Sales</a>';
-            echo '<a href="seeBorrowedBooks.php?id=' . $params['id'] . '">See Borrowed Books</a>';
-            echo '<a href="modifyCustomer.php?id=' . $params['id'] . '">Modify</a>';
-            echo '<a href="deleteCustomer.php?id=' . $params['id'] . '">Delete</a>';
-            echo '</td>';
-            echo '</tr>';
-        }
-        
-        echo '</table>';
-
-
+        $customers = Customer::getCustomers();
         if (isset($_POST['insertarCustomer'])) {
             echo <<<FORM
             <form method="post" action="">
@@ -70,16 +42,58 @@
                 <button type="submit" name="insertar">Submit</button>
             FORM;
             if(isset($_POST['insertar'])){
-                $nuevo = new Customer($_POST['firstName'],$_POST['surname'],$_POST['email'],$_POST['type'],$connection);
+                $nuevo = new Customer($_POST['firstName'],$_POST['surname'],$_POST['email'],$_POST['type']);
                 $nuevo->insert();
+                header("Refresh:0");
             }
-        }  elseif(isset($_POST['borrarCustomer'])){
+        }  elseif(isset($_POST['seeSales'])){
 
-        } elseif(isset($_POST['verCustomers'])){
 
-        } elseif(isset($_POST['buscarCustomer'])){
+        } elseif(isset($_POST['seeBorrowedBooks'])){
+
+        } elseif(isset($_POST['modifyCustomer'])){
         
+        }  elseif(isset($_POST['deleteCustomer'])){
+            Customer::deleteCustomer($_POST["deleteCustomer"]);
+            header("Refresh:0");
         }
+
+        echo '<form method="post" action="">';
+        echo '<table border="1">';
+        echo '<tr>';
+        foreach ($customers[0] as $key => $value) {
+            echo '<th>' . htmlspecialchars($key) . '</th>';
+        }
+        echo '<th>Actions</th>';
+        echo '</tr>';
+        
+        foreach ($customers as $params) {
+            echo '<tr>';
+            foreach ($params as $key => $value) {
+                echo '<td>' . htmlspecialchars($value) . '</td>';
+            }
+            echo '<td>';
+            echo "<button type='submit' name='seeSales' value=$params[id]>";
+            echo "See Sales</button>";
+        
+            echo "<button type='submit' name='seeBorrowedBooks' value=$params[id]>";
+            echo "See Borrowed Books</button>";
+        
+            echo "<button type='submit' name='modifyCustomer' value=$params[id]>";
+            echo 'Modify</button>';
+        
+            echo "<button type='submit' name='deleteCustomer' value=$params[id]>";
+            echo 'Delete</button>';
+            echo '</td>';
+            echo '</tr>';
+        }
+        
+        echo '</table>';
+        echo '</form>';
+
+
+
+       
     ?>
 </body>
 </html>

@@ -49,9 +49,6 @@ class DBConnection {
               $connection->exec($DBFile);
           }
       }
-  
-      return $connection;
-
       }
     }
 
@@ -65,7 +62,7 @@ class DBConnection {
       return self::$instance;
   }
 
-
+  
 }
 
 ?>
