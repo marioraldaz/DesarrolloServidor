@@ -49,6 +49,9 @@ class DBConnection {
               $connection->exec($DBFile);
           }
       }
+
+      echo "Base de datos creada con éxito.";
+      return $connection;
       }
     }
 
