@@ -54,4 +54,33 @@
                 return false;
             }
         }
+
+        public static function getCustomer($id){
+            $statement = DBConnection::$connection->prepare("Select * FROM customer where id = $id");
+            if ($statement->execute()) {
+                $params=$statement->fetchAll(PDO::FETCH_ASSOC);
+                return $params;
+            } else {
+                return false;
+            }
+        }
+
+        public static function modifyCustomer($id, $firstname, $surname, $newEmail, $type){
+            try {
+                // ... (your connection setup)
+        
+                $statement = DBConnection::$connection->prepare("UPDATE customer SET firstname = :newFirstname, surname = :newSurname, email = :newEmail, type = :newType WHERE id = :customerId");
+                $statement->bindParam(':newFirstname', $firstname);
+                $statement->bindParam(':newSurname', $surname);
+                $statement->bindParam(':newEmail', $newEmail);
+                $statement->bindParam(':newType', $type);
+                $statement->bindParam(':customerId', $id, PDO::PARAM_INT); // Assuming $id is an integer
+                $statement->execute();
+        
+                echo "Update successful";
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+        }
+        
 }

@@ -40,6 +40,7 @@
                 <br>
                 <input type="hidden" name="insertarCustomer" value=""></br>
                 <button type="submit" name="insertar">Submit</button>
+            </form>
             FORM;
             if(isset($_POST['insertar'])){
                 $nuevo = new Customer($_POST['firstName'],$_POST['surname'],$_POST['email'],$_POST['type']);
@@ -52,8 +53,35 @@
         } elseif(isset($_POST['seeBorrowedBooks'])){
 
         } elseif(isset($_POST['modifyCustomer'])){
-        
-        }  elseif(isset($_POST['deleteCustomer'])){
+            $params=Customer::getCustomer($_POST['modifyCustomer'])[0];
+            echo <<<FORM
+            <form method="post" action="">
+            
+                <label for="firstName">First Name:</label>
+                <input type="text" name="firstname" value=$params[firstname] required>
+                <br>
+            
+                <label for="surname">Surname:</label>
+                <input type="text" name="surname" value=$params[surname] required>
+                <br>
+            
+                <label for="email">Email:</label>
+                <input type="email" name="email" value=$params[email] required>
+                <br>
+            
+                <label for="type">Type:</label>
+                <input type="text" name="type" value=$params[type] required>
+                <br>
+                <input type="hidden" name="modifyCustomer" value=$params[id] />
+                <button type="submit" name="insertar" value=$_POST[modifyCustomer]>Submit</button>
+            </form>
+            FORM;
+            if(isset($_POST['insertar'])){
+                Customer::modifyCustomer($_POST['insertar'],$_POST['firstname'],$_POST['surname'],$_POST['email'],$_POST['type']); 
+                header("Refresh:0");
+            }
+        }
+        elseif(isset($_POST['deleteCustomer'])){
             Customer::deleteCustomer($_POST["deleteCustomer"]);
             header("Refresh:0");
         }
