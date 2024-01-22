@@ -55,8 +55,21 @@
             }
         }
 
-        public static function getCustomer($id){
+        public static function getCustomerById($id){
             $statement = DBConnection::$connection->prepare("Select * FROM customer where id = $id");
+            if ($statement->execute()) {
+                $params=$statement->fetchAll(PDO::FETCH_ASSOC);
+                return $params;
+            } else {
+                return false;
+            }
+        }
+
+        public static function getCustomerByName($firstname,$surname){
+            $statement = DBConnection::$connection->prepare("SELECT * FROM customer WHERE firstname = :firstname AND surname = :surname");
+            $statement->bindParam(':firstname', $firstname);
+            $statement->bindParam(':surname', $surname);
+            $statement->execute();
             if ($statement->execute()) {
                 $params=$statement->fetchAll(PDO::FETCH_ASSOC);
                 return $params;
@@ -82,5 +95,7 @@
                 echo "Error: " . $e->getMessage();
             }
         }
+
+        
         
 }

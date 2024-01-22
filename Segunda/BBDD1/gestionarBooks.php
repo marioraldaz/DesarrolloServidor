@@ -15,21 +15,21 @@
     use Segunda\books\Sale;
 
     DBConnection::getConnection();
-    $customers = Book::getBooks();
+    $booksInDB = Book::getBooks();
     
     echo '<form method="POST" action=""><table border="1">';
     echo '<button type="submit" name="insertarBook">Insertar Book</button>';
     echo '<a href="./">Go Back</a>';
     echo '<tr>';
 
-    foreach ($customers[0] as $key => $value) {
+    foreach ($booksInDB[0] as $key => $value) {
         echo '<th>' . htmlspecialchars($key) . '</th>';
     }
     
     echo '<th>Actions</th>';
     echo '</tr>';
     
-    foreach ($customers as $params) {
+    foreach ($booksInDB as $params) {
         echo '<tr>';
         foreach ($params as $key => $value) {
             echo '<td>' . htmlspecialchars($value) . '</td>';
@@ -127,7 +127,7 @@ if(isset($_POST['insertar'])){
             );
         }
     } elseif(isset($_POST['seeSales'])){
-    $sales=Sale::getSales($_POST['seeSales']);
+    $sales=Sale::getSalesByCostumerId($_POST['seeSales']);
     var_dump($sales);
 }
 

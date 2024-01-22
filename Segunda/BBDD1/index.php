@@ -18,8 +18,7 @@
         <!-- Buttons to perform actions -->
         <a href="./gestionarCustomers.php" >Gestionar Clientes</a>
         <a href="./gestionarBooks.php" >Gestionar Libros</a>
-        <button type="submit" name="verDatos">Ver Datos</button>
-        <button type="submit" name="desconectar">Desconectar</button>
+        <a href="./compra.php" >Realizar compra</a>
     </form>
     </div>
     

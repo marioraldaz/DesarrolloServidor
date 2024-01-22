@@ -18,7 +18,7 @@
 
         DBConnection::getConnection();
 
-        $customers = Customer::getCustomers();
+        $booksInDB = Customer::getCustomers();
         if (isset($_POST['insertarCustomer'])) {
             echo <<<FORM
             <form method="post" action="">
@@ -53,7 +53,7 @@
         } elseif(isset($_POST['seeBorrowedBooks'])){
 
         } elseif(isset($_POST['modifyCustomer'])){
-            $params=Customer::getCustomer($_POST['modifyCustomer'])[0];
+            $params=Customer::getCustomerById($_POST['modifyCustomer'])[0];
             echo <<<FORM
             <form method="post" action="">
             
@@ -89,13 +89,13 @@
         echo '<form method="post" action="">';
         echo '<table border="1">';
         echo '<tr>';
-        foreach ($customers[0] as $key => $value) {
+        foreach ($booksInDB[0] as $key => $value) {
             echo '<th>' . htmlspecialchars($key) . '</th>';
         }
         echo '<th>Actions</th>';
         echo '</tr>';
         
-        foreach ($customers as $params) {
+        foreach ($booksInDB as $params) {
             echo '<tr>';
             foreach ($params as $key => $value) {
                 echo '<td>' . htmlspecialchars($value) . '</td>';
