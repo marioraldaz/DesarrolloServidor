@@ -36,9 +36,9 @@
         }
         echo '<td>';
         echo "<button type='submit' name='seeSales' value=$params[id]>See Sales</button>";
-        echo '<button type="submit" name="seeBorrowedBooks" value="seeBorrowedBooks">See Borrowed Books</button>';
-        echo '<button type="submit" name="seeBorrowedBooks" value="modifyCustomer">Modify</button>';
-        echo '<button type="submit" name="seeBorrowedBooks" value="deleteCustomer">Delete</button>';
+        echo "<button type=submit name=seeBorrowedBooks value=$params[id]>See Borrowed Books</button>";
+        echo "<button type=submit name=modifyBook value=$params[id]>Modify</button>";
+        echo "<button type=submit namedeleteBook value=$params[id]>Delete</button>";
         echo '</td>';
         echo '</tr>';
     }
@@ -74,6 +74,7 @@ if (isset($_POST['insertarBook'])) {
 </form>
 FORM;
 if(isset($_POST['insertar'])){
+
     $nuevo = new Book(
         $_POST['isbn'],
         $_POST['title'],
@@ -83,7 +84,49 @@ if(isset($_POST['insertar'])){
     );
     $nuevo->insert();
 }
-} elseif(isset($_POST['seeSales'])){
+} elseif(isset($_POST['modifyBook'])){
+    
+        $params = Book::getBookById($_POST['modifyBook'])[0];
+        var_dump($params);
+        echo <<<FORM
+        <form method="post" action="">
+        
+            <label for="isbn">ISBN:</label>
+            <input type="text" name="isbn" value=$params[isbn] required>
+            <br>
+        
+            <label for="title">Title:</label>
+            <input type="text" name="title" value="$params[title]" required>
+            <br>
+        
+            <label for="author">Author:</label>
+            <input type="text" name="author" value=$params[author] required>
+            <br>
+        
+            <label for="stock">Stock:</label>
+            <input type="number" name="stock" value=$params[stock] required>
+            <br>
+        
+            <label for="price">Price:</label>
+            <input type="number" name="price" value=$params[price] required>
+            <br>
+    
+            <input type="hidden" name="modifyBook" value=$params[id] />
+            <button type="submit" name="updateBook" value=$params[id]>Submit</button>
+        </form>
+        FORM;
+    
+        if(isset($_POST['updateBook'])){
+            Book::modifyBook(
+                $_POST['updateBook'],
+                $_POST['isbn'],
+                $_POST['title'],
+                $_POST['author'],
+                $_POST['stock'],
+                $_POST['price']
+            );
+        }
+    } elseif(isset($_POST['seeSales'])){
     $sales=Sale::getSales($_POST['seeSales']);
     var_dump($sales);
 }

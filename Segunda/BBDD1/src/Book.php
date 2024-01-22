@@ -1,6 +1,7 @@
 <?php
     namespace Segunda\books;
     use PDO;
+    use PDOException;
     Class Book extends DBConnection{
         private $isbn;
         private $title;
@@ -90,6 +91,28 @@
             $file = DBConnection::$connection->prepare("SELECT * FROM book");
             $file->execute();
             return $file->fetchAll(PDO::FETCH_ASSOC) ?? 'No book found';
+        }
+
+        public static function getBookById($id){
+            $file = DBConnection::$connection->prepare("SELECT * FROM book where id=$id");
+            $file->execute();
+            return $file->fetchAll(PDO::FETCH_ASSOC) ?? 'No book found';
+        }
+
+        public static function modifyBook($id, $isbn, $title, $author, $stock, $price){
+            try{
+            $statement = DBConnection::$connection->prepare("UPDATE book SET isbn = :newIsbn, title = :newTitle, author = :newAuthor, stock = :newStock, price = :newPrice WHERE id = :bookId");
+            $statement->bindParam(':newIsbn', $isbn);
+            $statement->bindParam(':newTitle', $title);
+            $statement->bindParam(':newAuthor', $author);
+            $statement->bindParam(':newStock', $stock);
+            $statement->bindParam(':newPrice', $price);
+            $statement->bindParam(':bookId', $id, PDO::PARAM_INT); // Assuming $id is an integer
+            $statement->execute();
+            echo "Update successful";
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
         }
 
     }
