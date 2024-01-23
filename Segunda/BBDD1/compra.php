@@ -6,55 +6,60 @@
     <title>Document</title>
 </head>
 <body>
-    
-    <?php
+<?php
         require 'vendor/autoload.php';
         use Segunda\books\DBConnection;
         use Segunda\books\Book;
         use Segunda\books\Sale;
         use Segunda\books\Customer;
+        DBConnection::getConnection();
+        session_start();
 
-        if(isset($_POST['customer_firstname'])){
-            DBConnection::getConnection();
-            Customer::getCustomerByName($_POST['customer_firstname'], $_POST['customer_lastname']);
+        if(!isset($_SESSION['customerID'])){
+            if(isset($_POST['customer_firstname']) && isset($_POST['customer_lastname']) ){
+                $customer = Customer::getCustomerByName($_POST['customer_firstname'], $_POST['customer_lastname'])[0];
+            
+                if(count($customer)==0){
+                    echo "<h1>Customer Not Found</h1>";
+                } else{
+                    $_SESSION['customerID'] = $customer['id'];
+                }
+            } 
+        }
+
+        if(isset($_POST['customer_firstname']) && $_SESSION['customerID']){
+            $customer=Customer::getCustomerByID($_SESSION['customerID'])[0];
             $booksInDB = Book::getBooks();
             echo '<div class="container"><form method="POST" action="">';
             echo '<a href="./">Go Back</a></br>';
-            echo "Make sale for $_POST[customer_firstname]  $_POST[customer_lastname]</br>";
+            echo "Make sale for $customer[firstname] $customer[surname]</br>";
         //
           
             //
-            echo "c";
             $books=[];
             if(isset($_POST['booksToBuy'])){
-                
-                echo "b";
-            if(isset($_POST['comprar'])){
-                echo "a";
-                if(isset($_POST['booksToBuy'])){
-                    $books=explode(',', $_POST['booksToBuy']);
-                    var_dump($books);
-                if(gettype($books)!=='array'){
-                    $books=[$books];
-                }
-                    echo "3";
-                    
-                    if(gettype($books)=='array'){
-                        array_push($books,$_POST['comprar']);
-                    } else{
-                        $books=[$_POST['comprar']];
-                        echo "2";
+                if(isset($_POST['comprar'])){
+                    if(isset($_POST['booksToBuy'])){
+                      
+                        $books=explode(',', $_POST['booksToBuy']);
+                    if(gettype($books)!=='array'){
+                        
+                        $books=[$books];
+                    }                    
+                        if(gettype($books)=='array' && strlen($_POST['booksToBuy']) > 0){
+                            array_push($books,$_POST['comprar']);
+                        } else{
+                            $books=[$_POST['comprar']];
+                        }
                     }
+                    
+                } else{
+                    $books=[];
+                }
+                if(isset($_POST['quitarLibro'])){
+                    unset($books[$_POST['quitarLibro']]);
                 }
                 
-            } else{
-                $books=[];
-                echo "1";
-            }
-            if(isset($_POST['quitarLibro'])){
-                unset($books[$_POST['quitarLibro']]);
-            }
-            
             if(count($books)>0){
                 echo "<br>Books in cart</br>";
                 echo "<table>";
@@ -63,8 +68,7 @@
                 foreach($books as $book){
                     array_push($arrayBooks,Book::getBookById($book)[0]);
                 }
-               
-                foreach ($arrayBooks[0]as $key => $value) {
+                foreach ($arrayBooks[0] as $key => $value) {
                     
                     echo '<th>' . htmlspecialchars($key) . '</th>';
                 }
@@ -72,7 +76,6 @@
                 
                 echo '<th>Actions</th>';
                 echo '</tr>';
-                var_dump($arrayBooks);
                 foreach ($arrayBooks as $params) {
                     echo '<tr>';
                     foreach ($params as $key => $value) {
@@ -84,6 +87,8 @@
                     echo '</tr>';
                 }
                 echo "</table>";
+                $compra= implode(', ', $books);
+                echo "<a href='gestionarCompra.php?compra=$compra&customerID=$_SESSION[customerID]'>Hacer compra</a>";
             }
             }
 
@@ -132,6 +137,7 @@
 
         }
     ?>
+</body>
 </body>
 
 <style>

@@ -13,7 +13,7 @@ class Sale extends DBConnection {
     }
 
     public function insert() {
-        $query = $this->connection->prepare("INSERT INTO sale (customer_id, date) VALUES (:customer_id, :date)");
+        $query = DBConnection::$connection->prepare("INSERT INTO sale (customer_id, date) VALUES (:customer_id, :date)");
         $query->bindParam(':customer_id', $this->customer_id);
         $query->bindParam(':date', $this->date);
         $query->execute();

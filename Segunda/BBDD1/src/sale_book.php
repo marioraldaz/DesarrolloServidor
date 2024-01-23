@@ -13,7 +13,7 @@
     }
 
     public function insert(){
-        $statement=$this->connection->prepare("INSERT INTO Sale (book_id, sale_id, amount) VALUES (:book_id, :sale_id, :amount)");
+        $statement=DBConnection::$connection->prepare("INSERT INTO sale_book (book_id, sale_id, amount) VALUES (:book_id, :sale_id, :amount)");
         $statement->bindParam(':book_id',$this->book_id);
         $statement->bindParam(':sale_id',$this->sale_id);
         $statement->bindParam(':amount',$this->amount);
