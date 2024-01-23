@@ -24,50 +24,69 @@
         //
           
             //
+            echo "c";
             $books=[];
             if(isset($_POST['booksToBuy'])){
-            echo "<br>Books in cart</br>";
-            echo "<table>";
+                
+                echo "b";
             if(isset($_POST['comprar'])){
+                echo "a";
                 if(isset($_POST['booksToBuy'])){
-                    /*if(isset($_POST['quitarLibro'])){
-                        unset($_POST['booksToBuy'][$_POST['quitarLibro']]);
-                    }*/
                     $books=explode(',', $_POST['booksToBuy']);
-                    $books=$_POST['booksToBuy'];
-                    array_push($books,$_POST['comprar']);
-                } else{
-                    $books=[$_POST['comprar']];
+                    var_dump($books);
+                if(gettype($books)!=='array'){
+                    $books=[$books];
                 }
+                    echo "3";
+                    
+                    if(gettype($books)=='array'){
+                        array_push($books,$_POST['comprar']);
+                    } else{
+                        $books=[$_POST['comprar']];
+                        echo "2";
+                    }
+                }
+                
             } else{
                 $books=[];
+                echo "1";
             }
-
-            $arrayBooks=[];
-            foreach($books as $book){
-                array_push($arrayBooks,Book::getBookById($book));
-            }
-
-
-            foreach ($arrayBooks[0] as $key => $value) {
-                echo '<th>' . htmlspecialchars($key) . '</th>';
+            if(isset($_POST['quitarLibro'])){
+                unset($books[$_POST['quitarLibro']]);
             }
             
-            echo '<th>Actions</th>';
-            echo '</tr>';
-            
-            foreach ($arrayBooks as $params) {
-                echo '<tr>';
-                foreach ($params as $key => $value) {
-                    echo '<td>' . htmlspecialchars($value) . '</td>';
+            if(count($books)>0){
+                echo "<br>Books in cart</br>";
+                echo "<table>";
+
+                $arrayBooks=[];
+                foreach($books as $book){
+                    array_push($arrayBooks,Book::getBookById($book)[0]);
                 }
-                echo '<td>';
-                echo "<button type=submit name=quitarLibro value=$params[id]>Quitar libro</button>";
-                echo '</td>';
+               
+                foreach ($arrayBooks[0]as $key => $value) {
+                    
+                    echo '<th>' . htmlspecialchars($key) . '</th>';
+                }
+                
+                
+                echo '<th>Actions</th>';
                 echo '</tr>';
+                var_dump($arrayBooks);
+                foreach ($arrayBooks as $params) {
+                    echo '<tr>';
+                    foreach ($params as $key => $value) {
+                        echo '<td>' . htmlspecialchars($value) . '</td>';
+                    }
+                    echo '<td>';
+                    echo "<button type=submit name=quitarLibro value=$params[id]>Quitar libro</button>";
+                    echo '</td>';
+                    echo '</tr>';
+                }
+                echo "</table>";
             }
-            echo "</table>";
-        }
+            }
+
             //
             echo "</br> Books available</br>";
 
@@ -92,7 +111,7 @@
             echo "</table>";
                 $books= implode(', ', $books);
 
-                echo "<input type=hidden value=$books name=booksToBuy>";
+                echo "<input type=hidden name='booksToBuy' value='$books' >";
             
             echo "<input type=hidden value=$_POST[customer_firstname] name=customer_firstname>";
             echo "<input type=hidden value=$_POST[customer_lastname] name=customer_lastname>";
@@ -112,7 +131,6 @@
             FORM;
 
         }
-
     ?>
 </body>
 
