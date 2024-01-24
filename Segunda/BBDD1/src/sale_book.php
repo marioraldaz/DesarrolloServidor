@@ -30,6 +30,8 @@
             if($e->getCode()=="23000"){
                 $update=DBConnection::$connection->prepare("Update sale_book SET amount = amount +1 where sale_id = $this->sale_id and book_id = $this->book_id");
                 $update->execute();
+            } else{
+                var_dump($e);
             }
 
         }
