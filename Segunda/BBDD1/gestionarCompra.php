@@ -20,11 +20,13 @@
         
         $sale = new Sale(date("Y-m-d"),$_GET['customerID'] );
         $sale->insert();
+
         foreach ($booksID as $bookID){
-            var_dump($sale);
+            
             $sale_book = new Sale_Book($bookID,$sale->id,1);
             $sale_book->insert();
         }
+        
        
     ?>
 </body>

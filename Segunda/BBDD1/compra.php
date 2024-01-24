@@ -134,7 +134,6 @@
                     <input type="submit" value="Hacer compra" />
                 </form>
             FORM;
-
         }
     ?>
 </body>

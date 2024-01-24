@@ -17,6 +17,10 @@ class Sale extends DBConnection {
         $query->bindParam(':customer_id', $this->customer_id);
         $query->bindParam(':date', $this->date);
         $query->execute();
+        $query2 = DBConnection::$connection->prepare("Select last_insert_id()");
+        $query2->execute();
+        $id=$query2->fetchAll();;
+        $this->id=$id[0][0];
     }
 
     public static function getSalesByCostumerId($customerID) {
