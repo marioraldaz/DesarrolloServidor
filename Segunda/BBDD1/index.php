@@ -14,12 +14,10 @@
     ?>
     
 <div class="header" style="width:100%; height:30px; background-color:beige; margin-bottom:20px">
-    <form method="post" action="">
         <!-- Buttons to perform actions -->
         <a href="./gestionarCustomers.php" >Gestionar Clientes</a>
         <a href="./gestionarBooks.php" >Gestionar Libros</a>
         <a href="./compra.php" >Realizar compra</a>
-    </form>
     </div>
     
  

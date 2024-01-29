@@ -36,7 +36,6 @@
         }
         echo '<td>';
         echo "<button type='submit' name='seeSales' value=$params[id]>See Sales</button>";
-        echo "<button type=submit name=seeBorrowedBooks value=$params[id]>See Borrowed Books</button>";
         echo "<button type=submit name=modifyBook value=$params[id]>Modify</button>";
         echo "<button type=submit namedeleteBook value=$params[id]>Delete</button>";
         echo '</td>';
@@ -127,6 +126,7 @@ if(isset($_POST['insertar'])){
             );
         }
     } elseif(isset($_POST['seeSales'])){
+        
     $sales=Sale::getSalesByCostumerId($_POST['seeSales']);
     var_dump($sales);
 }

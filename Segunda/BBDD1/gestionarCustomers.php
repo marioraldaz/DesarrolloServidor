@@ -15,10 +15,13 @@
         require 'vendor/autoload.php';
         use Segunda\books\Customer;
         use Segunda\books\DBConnection;
+        use Segunda\books\Sale;
 
         DBConnection::getConnection();
 
         $booksInDB = Customer::getCustomers();
+        var_dump($booksInDB);
+
         if (isset($_POST['insertarCustomer'])) {
             echo <<<FORM
             <form method="post" action="">
@@ -48,7 +51,8 @@
                 header("Refresh:0");
             }
         }  elseif(isset($_POST['seeSales'])){
-
+           $sales = Sale::getSalesByCostumerId($_POST['seeSales']);
+           var_dump($sales);
 
         } elseif(isset($_POST['seeBorrowedBooks'])){
 
@@ -86,7 +90,8 @@
             header("Refresh:0");
         }
 
-        echo '<form method="post" action="">';
+        if(count($booksInDB)>0){
+                 echo '<form method="post" action="">';
         echo '<table border="1">';
         echo '<tr>';
         foreach ($booksInDB[0] as $key => $value) {
@@ -118,6 +123,8 @@
         
         echo '</table>';
         echo '</form>';
+        }
+   
 
 
 

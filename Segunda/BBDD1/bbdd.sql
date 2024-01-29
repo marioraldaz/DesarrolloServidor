@@ -1,4 +1,5 @@
 
+
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
@@ -85,12 +86,13 @@ CREATE TABLE IF NOT EXISTS `customer` (
 -- Estructura de tabla para la tabla `sale`
 --
 
-public function insert() {
-    $query = $this->connection->prepare("INSERT INTO sale (customer_id, date) VALUES (:customer_id, :date)");
-    $query->bindParam(':customer_id', $this->customer_id);
-    $query->bindParam(':date', $this->date);
-    $query->execute();
-}
+CREATE TABLE IF NOT EXISTS `sale` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `customer_id` int(10) DEFAULT NULL,
+  `date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `customer_id` (`customer_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
