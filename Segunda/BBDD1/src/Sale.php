@@ -27,8 +27,7 @@ class Sale extends DBConnection {
         $query = DBConnection::$connection->prepare("SELECT * FROM sale WHERE customer_id = :customerID");
         $query->bindParam(':customerID', $customerID);
         $query->execute();
-        return $query->fetchAll();
+        $result = $query->fetchAll();
+        return $result;
     }
-
-
 }

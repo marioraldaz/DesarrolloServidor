@@ -1,0 +1,19 @@
+{
+    "name": "daw2/blade",
+    "type": "project",
+    "require": {
+        "philo/laravel-blade": "^3.1"
+    },
+    "license": "GNU/GPL",
+    "autoload": {
+        "psr-4": {
+            "Daw2\\Blade\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "marioraldaz",
+            "email": "130656068+marioraldaz@users.noreply.github.com"
+        }
+    ]
+}

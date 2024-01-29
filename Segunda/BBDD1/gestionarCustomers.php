@@ -20,7 +20,6 @@
         DBConnection::getConnection();
 
         $booksInDB = Customer::getCustomers();
-        var_dump($booksInDB);
 
         if (isset($_POST['insertarCustomer'])) {
             echo <<<FORM

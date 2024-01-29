@@ -17,8 +17,9 @@
         if(!isset($_SESSION['customerID'])){
             if(isset($_POST['customer_firstname']) && isset($_POST['customer_lastname']) ){
                 $customer = Customer::getCustomerByName($_POST['customer_firstname'], $_POST['customer_lastname']);
-                var_dump($_SESSION);
-                var_dump($customer);
+                if($customer){
+                    $customer=$customer[0];
+                }
                 if(count($customer)==0 || $customer===null){
                     echo "<h1>Customer Not Found</h1>";
                 } else{
