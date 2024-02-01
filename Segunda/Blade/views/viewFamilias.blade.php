@@ -1,4 +1,4 @@
-@extends('plantillas.plantilla1')
+@extends('layout')
 @section('titulo')
     {{$titulo}}
 @endsection
