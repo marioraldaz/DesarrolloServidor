@@ -1,17 +1,16 @@
 <?php
 require '../vendor/autoload.php';
-
-use Windwalker\Edge\Edge;
-use Windwalker\Edge\Loader\EdgeFileLoader;
-
-$views = ['./views'];
+use Philo\Blade\Blade;
+$views = '../views';
 $cache = '../cache';
+$blade = new Blade($views, $cache);
+// Your data for the view
+$familias = [
+    (object)['cod' => '001', 'nombre' => 'Family 1'],
+    (object)['cod' => '002', 'nombre' => 'Family 2'],
+    // Add more data as needed
+];
 
-$titulo = "titulo";
-$contenido = "contenido";
-
-$data = array($titulo, $contenido);
-
-$blade = new Edge(new EdgeFileLoader());
-
-echo $blade->render('/Segunda/Blade/views/layout', $data);
+// Render the Blade view
+echo $blade->view()->make('viewFamilias', ['familias' => $familias, 'titulo' => 'Lista de Familias', 'encabezado' => 'Familias Disponibles'])->render();
+?>
