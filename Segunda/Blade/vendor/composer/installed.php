@@ -3,7 +3,7 @@
         'name' => 'daw2/blade',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '632a7d105e8e455b28db884b331cd726eea12b5e',
+        'reference' => '9867dcfa35b52eae515b2a7b0b604887ff1a5ea5',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -22,7 +22,7 @@
         'daw2/blade' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '632a7d105e8e455b28db884b331cd726eea12b5e',
+            'reference' => '9867dcfa35b52eae515b2a7b0b604887ff1a5ea5',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -219,6 +219,15 @@
             'provided' => array(
                 0 => '2.3',
             ),
+        ),
+        'windwalker/edge' => array(
+            'pretty_version' => '3.5.23',
+            'version' => '3.5.23.0',
+            'reference' => 'f6035a25b2e9f7b3a734730df8953787157e2061',
+            'type' => 'windwalker-package',
+            'install_path' => __DIR__ . '/../windwalker/edge',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
     ),
 );
