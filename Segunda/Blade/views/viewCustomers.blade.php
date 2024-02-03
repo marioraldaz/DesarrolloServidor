@@ -23,10 +23,10 @@
                                 <td>{{ htmlspecialchars($value) }}</td>
                             @endforeach
                             <td>
-                                <button type="submit" name="seeSales" value="{{ $params['id'] }}">See Sales</button>
-                                <button type="submit" name="seeBorrowedBooks" value="{{ $params['id'] }}">See Borrowed Books</button>
-                                <button type="submit" name="modifyCustomer" value="{{ $params['id'] }}">Modify</button>
-                                <button type="submit" name="deleteCustomer" value="{{ $params['id'] }}">Delete</button>
+                                <a href="seeCustomerSales.php?id={{ $params['id'] }}">See Sales</a>
+                                <a href="seeBorrowedBooks.php?id={{ $params['id'] }}">See Borrowed Books</a>
+                                <a href="modifyCustomer.php?id={{ $params['id'] }}">Modify</a>
+                                <a href="your_php_file.php?action=deleteCustomer&id={{ $params['id'] }}">Delete</a>
                             </td>
                         </tr>
                     @endforeach

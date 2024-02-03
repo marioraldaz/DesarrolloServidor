@@ -21,10 +21,10 @@
                                 <td><?php echo e(htmlspecialchars($value)); ?></td>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             <td>
-                                <button type="submit" name="seeSales" value="<?php echo e($params['id']); ?>">See Sales</button>
-                                <button type="submit" name="seeBorrowedBooks" value="<?php echo e($params['id']); ?>">See Borrowed Books</button>
-                                <button type="submit" name="modifyCustomer" value="<?php echo e($params['id']); ?>">Modify</button>
-                                <button type="submit" name="deleteCustomer" value="<?php echo e($params['id']); ?>">Delete</button>
+                                <a href="seeCustomerSales.php?id=<?php echo e($params['id']); ?>">See Sales</a>
+                                <a href="seeBorrowedBooks.php?action=seeBorrowedBooks&id=<?php echo e($params['id']); ?>">See Borrowed Books</a>
+                                <a href="your_php_file.php?action=modifyCustomer&id=<?php echo e($params['id']); ?>">Modify</a>
+                                <a href="your_php_file.php?action=deleteCustomer&id=<?php echo e($params['id']); ?>">Delete</a>
                             </td>
                         </tr>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

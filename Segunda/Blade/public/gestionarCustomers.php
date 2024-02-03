@@ -2,7 +2,6 @@
     require '../vendor/autoload.php';
     use Daw2\Blade\Customer;
     use Daw2\Blade\DBConnection;
-    use Daw2\Blade\Sale;
     use Philo\Blade\Blade;
 
     DBConnection::getConnection();

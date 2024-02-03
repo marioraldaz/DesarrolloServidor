@@ -2,7 +2,7 @@
     namespace Daw2\Blade;
     use PDO;
     use PDOException;
-    class BorrowedBooks extends DBConnection {
+    class Borrowed_Book extends DBConnection {
 
         public $book_id;
         public $customer_id;
@@ -39,22 +39,18 @@
             }
         }
     
-        public function getBorrowedBooksByCustomer($customer_id) {
-            try {
-                $this->dbConnect();
-    
+        public static function getBorrowedBooksByCustomer($customer_id) {
+            try {    
                 // Assuming $this->connection is the PDO connection object
                 $query = "SELECT * FROM borrowed_books WHERE customer_id = :customer_id";
     
-                $statement = $this->connection->prepare($query);
+                $statement = DBConnection::$connection->prepare($query);
                 $statement->bindParam(':customer_id', $customer_id, PDO::PARAM_INT);
                 $statement->execute();
     
                 return $statement->fetchAll(PDO::FETCH_ASSOC);
             } catch (PDOException $error) {
                 echo "Error retrieving borrowed books: " . $error->getMessage();
-            } finally {
-                $this->dbClose();
             }
         }
     }
