@@ -30,7 +30,7 @@
         
         if(isset($_SESSION['customerID'])){
             $customer=Customer::getCustomerByID($_SESSION['customerID'])[0];
-            $booksInDB = Book::getBooks();
+            $customersInDB = Book::getBooks();
             echo '<div class="container"><form method="POST" action="">';
             echo '<a href="./">Go Back</a></br>';
             echo "Make sale for $customer[firstname] $customer[surname]</br>";
@@ -97,14 +97,14 @@
             echo "</br> Books available</br>";
 
             echo "<table>";
-            foreach ($booksInDB[0] as $key => $value) {
+            foreach ($customersInDB[0] as $key => $value) {
                 echo '<th>' . htmlspecialchars($key) . '</th>';
             }
             
             echo '<th>Actions</th>';
             echo '</tr>';
             
-            foreach ($booksInDB as $params) {
+            foreach ($customersInDB as $params) {
                 echo '<tr>';
                 foreach ($params as $key => $value) {
                     echo '<td>' . htmlspecialchars($value) . '</td>';

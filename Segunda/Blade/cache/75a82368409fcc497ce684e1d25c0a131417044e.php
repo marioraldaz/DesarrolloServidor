@@ -1,12 +1,9 @@
 <html>
     <head>
+        <link rel="stylesheet" href="../global.css" type="text/css">
         <title>App Name - <?php echo $__env->yieldContent('titulo'); ?></title>
     </head>
     <body>
-        <?php $__env->startSection('encabezado'); ?>
-            This is the master sidebar.
-        <?php echo $__env->yieldSection(); ?>
- 
         <div class="container">
             <?php echo $__env->yieldContent('contenido'); ?>
         </div>
