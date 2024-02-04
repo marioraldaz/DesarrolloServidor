@@ -45,7 +45,7 @@
             }
         }
 
-        public static function deleteCustomer($id){
+        public static function deleteCustomerById($id){
             $statement = DBConnection::$connection->prepare("DELETE FROM customer where id = $id");
             if ($statement->execute()) {
                 return $statement->fetchAll(PDO::FETCH_ASSOC);

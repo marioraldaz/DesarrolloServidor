@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Insertar Customer</title>
 </head>
+
 <body>
     <?php
         require '../vendor/autoload.php';
@@ -21,10 +23,12 @@
 
         echo $blade->view()->make('viewInsertarCustomer')->render();
         if(isset($_POST['insertar'])){
+            header("Refresh:5");
             $nuevo = new Customer($_POST['firstName'],$_POST['surname'],$_POST['email'],$_POST['type']);
             $nuevo->insert();
-            header("Refresh:0");
+            echo "Customer inserted successfully, refreshing in 5 seconds.";
         }
     ?>
 </body>
+
 </html>
