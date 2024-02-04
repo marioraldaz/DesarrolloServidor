@@ -27,7 +27,7 @@
             echo "Book deleted successfully, refreshing page in 5 seconds";
         }
 
-        echo $blade->view()->make('viewBooks', ['titulo'=>'Gestionar Libros'],['customersInDB' => $booksInDB, 'titulo' => 'Lista de Familias', 'encabezado' => 'Familias Disponibles'])->render();
+        echo $blade->view()->make('viewBooks', ['titulo'=>'Gestionar Libros'],['books' => $booksInDB, 'titulo' => 'Lista de Familias', 'encabezado' => 'Familias Disponibles'])->render();
         
     ?>
 </body>
