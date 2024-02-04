@@ -22,4 +22,4 @@
 
         Book::modifyBook($_POST['updateBook'],$_POST['isbn'],$_POST['title'],$_POST['author'],$_POST['stock'],$_POST['price']);
         echo "<br>refreshing page in 5 seconds...";
-    } 
+    }

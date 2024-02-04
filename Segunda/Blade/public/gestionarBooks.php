@@ -21,8 +21,14 @@
         $views = '../views';
         $cache = '../cache';
         $blade = new Blade($views, $cache);
-        echo $blade->view()->make('viewBooks', ['titulo'=>'Gestionar Libros'],['customersInDB' => $booksInDB, 'titulo' => 'Lista de Familias', 'encabezado' => 'Familias Disponibles'])->render();
+        if(isset($_POST['deleteBook'])){
+            header('refresh:5');
+            Book::deleteBookById($_POST['deleteBook']);
+            echo "Book deleted successfully, refreshing page in 5 seconds";
+        }
 
+        echo $blade->view()->make('viewBooks', ['titulo'=>'Gestionar Libros'],['customersInDB' => $booksInDB, 'titulo' => 'Lista de Familias', 'encabezado' => 'Familias Disponibles'])->render();
+        
     ?>
 </body>
 
