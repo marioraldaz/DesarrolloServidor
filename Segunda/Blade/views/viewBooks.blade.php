@@ -7,13 +7,13 @@
     <form method="POST" action="">
         <table>
             <tr>
-                @foreach ($customersInDB[0] as $key => $value)
+                @foreach ($customer[0] as $key => $value)
                     <th>{{ htmlspecialchars($key) }}</th>
                 @endforeach
                 <th>Actions</th>
             </tr>
 
-            @foreach ($customersInDB as $params)
+            @foreach ($customer as $params)
                 <tr>
                     @foreach ($params as $key => $value)
                         <td>{{ htmlspecialchars($value) }}</td>

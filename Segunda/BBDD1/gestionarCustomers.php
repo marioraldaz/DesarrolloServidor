@@ -19,7 +19,7 @@
 
         DBConnection::getConnection();
 
-        $customersInDB = Customer::getCustomers();
+        $customer = Customer::getCustomers();
 
         if (isset($_POST['insertarCustomer'])) {
             echo <<<FORM
@@ -89,17 +89,17 @@
             header("Refresh:0");
         }
 
-        if(count($customersInDB)>0){
+        if(count($customer)>0){
                  echo '<form method="post" action="">';
         echo '<table border="1">';
         echo '<tr>';
-        foreach ($customersInDB[0] as $key => $value) {
+        foreach ($customer[0] as $key => $value) {
             echo '<th>' . htmlspecialchars($key) . '</th>';
         }
         echo '<th>Actions</th>';
         echo '</tr>';
         
-        foreach ($customersInDB as $params) {
+        foreach ($customer as $params) {
             echo '<tr>';
             foreach ($params as $key => $value) {
                 echo '<td>' . htmlspecialchars($value) . '</td>';

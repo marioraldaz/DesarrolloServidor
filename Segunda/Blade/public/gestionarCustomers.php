@@ -5,7 +5,7 @@
     use Philo\Blade\Blade;
 
     DBConnection::getConnection();
-    $customersInDB = Customer::getCustomers();
+    $customers = Customer::getCustomers();
 
     $views = '../views';
     $cache = '../cache';
@@ -18,4 +18,4 @@
         Customer::deleteCustomerById($_POST['deleteCustomer']);
         echo "Customer deleted successfully, refreshing in 5 seconds.";
     }
-    echo $blade->view()->make('viewCustomers', ['titulo'=>'titulo'],['customersInDB' => $customersInDB])->render();
+    echo $blade->view()->make('viewCustomers', ['titulo'=>'titulo'],['customers' => $customers])->render();
