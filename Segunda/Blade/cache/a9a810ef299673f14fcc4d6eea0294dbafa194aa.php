@@ -22,8 +22,8 @@
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             <td>
                                 <a href="seeCustomerSales.php?id=<?php echo e($params['id']); ?>">See Sales</a>
-                                <a href="seeBorrowedBooks.php?action=seeBorrowedBooks&id=<?php echo e($params['id']); ?>">See Borrowed Books</a>
-                                <a href="your_php_file.php?action=modifyCustomer&id=<?php echo e($params['id']); ?>">Modify</a>
+                                <a href="seeBorrowedBooks.php?id=<?php echo e($params['id']); ?>">See Borrowed Books</a>
+                                <a href="modifyCustomer.php?id=<?php echo e($params['id']); ?>">Modify</a>
                                 <a href="your_php_file.php?action=deleteCustomer&id=<?php echo e($params['id']); ?>">Delete</a>
                             </td>
                         </tr>

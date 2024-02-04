@@ -109,9 +109,10 @@
             $statement->bindParam(':newPrice', $price);
             $statement->bindParam(':bookId', $id, PDO::PARAM_INT); // Assuming $id is an integer
             $statement->execute();
-            echo "Update successful";
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
+        } finally{
+            echo "Book Updated Successfully";
         }
         }
 
